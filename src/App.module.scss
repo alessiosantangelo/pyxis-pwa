@@ -1,0 +1,42 @@
+@use "@pyxis/scss" as *;
+
+$logoWidth: rem(140px);
+
+.header {
+    @include responsiveSpacing("padding", m l, $fromMedium: l xl);
+    display: grid;
+    vertical-align: center;
+    grid-template-columns: $logoWidth 1fr;
+    grid-column-gap: spacing(m);
+}
+
+.menu {
+    display: flex;
+    list-style: none;
+}
+
+.menuItem {
+    padding: 0 spacing(m);
+}
+
+.logo {
+    max-width: $logoWidth;
+    height: auto;
+    margin: 0 auto;
+}
+
+.heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+    min-height: 50vh;
+}
+
+.installPromptWrapper {
+    @include containerResponsive();
+    padding: spacing(m);
+    text-align: center;
+}
