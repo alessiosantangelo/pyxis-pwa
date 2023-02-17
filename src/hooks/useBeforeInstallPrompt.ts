@@ -19,11 +19,11 @@ declare global {
 type AddToHomeScreenEffect = [BeforeInstallPromptEvent | null, () => void]
 
 const useAddToHomescreenPrompt = ():AddToHomeScreenEffect =>  {
-    const [prompt, setState] = useState<BeforeInstallPromptEvent | null>(null);
+    const [promptEvent, setPromptEvent] = useState<BeforeInstallPromptEvent | null>(null);
 
     const promptToInstall = () => {
-        if (prompt) {
-            return prompt.prompt();
+        if (promptEvent) {
+            return promptEvent.prompt();
         }
         return Promise.reject(
             new Error('Tried installing before browser sent "beforeinstallprompt" event')
@@ -34,7 +34,7 @@ const useAddToHomescreenPrompt = ():AddToHomeScreenEffect =>  {
         const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
             console.log('[handleBeforeInstallPrompt] called with', e)
             e.preventDefault();
-            setState(e);
+            setPromptEvent(e);
         };
 
         window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
@@ -44,7 +44,7 @@ const useAddToHomescreenPrompt = ():AddToHomeScreenEffect =>  {
         };
     }, []);
 
-    return [prompt, promptToInstall];
+    return [promptEvent, promptToInstall];
 }
 
 export default useAddToHomescreenPrompt;
