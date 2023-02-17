@@ -9,7 +9,37 @@ const App = ():React.ReactElement =>  {
   const [prompt, handlePrompt] = useAddToHomescreenPrompt();
   const [showPrompt, setShowPrompt] = useState(false);
 
-  useEffect(() => { prompt && setShowPrompt(true); }, [prompt])
+  // Show the install prompt if not already installed.
+  useEffect(() => { 
+    if(prompt) {
+      setShowPrompt(true); 
+    }
+  }, [prompt])
+
+  // Print already installed apps.
+  useEffect(() => {
+    
+    const logRelatedApps = async () => {
+      if("getInstalledRelatedApps" in navigator) {
+        // @ts-ignore next-line
+        const apps:[{id: any, platform:any, url:any}] = await navigator.getInstalledRelatedApps();
+        apps.forEach((app: { id: any; platform: any; url: any; }) => {
+          console.log(app.id, app.platform, app.url);
+        });
+      }
+    }
+    
+    logRelatedApps()
+      .catch(console.error)
+  })
+  
+  
+  window.addEventListener("load", () => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
+  });
+
 
   return (
   <main className="container container-responsive align-content-center">

@@ -1,4 +1,5 @@
 import './index.scss'
+import '@pyxis/scss/dist/pyxis.css'
 
 import App from './App';
 import React from 'react';
