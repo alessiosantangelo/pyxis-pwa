@@ -1,17 +1,18 @@
 @use "@pyxis/scss" as *;
 
-$logoWidth: rem(140px);
+$logoWidth: rem(100px);
 
 .header {
-    @include responsiveSpacing("padding", m l, $fromMedium: l xl);
+    padding: spacing(m) 0;
     display: grid;
-    vertical-align: center;
+    align-items: center;
     grid-template-columns: $logoWidth 1fr;
     grid-column-gap: spacing(m);
 }
 
 .menu {
     display: flex;
+    justify-content: flex-end;
     list-style: none;
 }
 
@@ -19,10 +20,10 @@ $logoWidth: rem(140px);
     padding: 0 spacing(m);
 }
 
-.logo {
+.logoWrapper {
     max-width: $logoWidth;
     height: auto;
-    margin: 0 auto;
+    margin: spacing(s) auto 0 auto;
 }
 
 .heading {
@@ -39,4 +40,30 @@ $logoWidth: rem(140px);
     @include containerResponsive();
     padding: spacing(m);
     text-align: center;
+    margin-bottom: spacing(l);
+}
+
+.addToHomeScreenWrapper {
+    text-align: center;
+    padding: spacing(xl) 0;
+    margin-bottom: spacing(l);
+
+    @include mq(m) {
+        display: flex;
+        text-align: left;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.addToHomeScreenImage {
+    max-width: rem(250px);
+    width: 100%;
+    height: auto;
+    border-radius: rem(5px);
+    margin: spacing(m) 0;
+
+    @include mq(m) {
+        margin: 0 0 0 spacing(m);
+    }
 }

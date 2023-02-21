@@ -21,6 +21,7 @@ type AddToHomeScreenEffect = [BeforeInstallPromptEvent | null, () => void]
 const useAddToHomescreenPrompt = ():AddToHomeScreenEffect =>  {
     const [promptEvent, setPromptEvent] = useState<BeforeInstallPromptEvent | null>(null);
 
+    // Handler to be used in the Component.
     const promptToInstall = () => {
         if (promptEvent) {
             return promptEvent.prompt();
@@ -32,7 +33,7 @@ const useAddToHomescreenPrompt = ():AddToHomeScreenEffect =>  {
 
     useEffect(() => {
         const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
-            console.log('[handleBeforeInstallPrompt] called with', e)
+            // Event should be prevented in order to show custom install button.
             e.preventDefault();
             setPromptEvent(e);
         };
@@ -44,6 +45,8 @@ const useAddToHomescreenPrompt = ():AddToHomeScreenEffect =>  {
         };
     }, []);
 
+    // Return the intercepted event and the callBack to be invoked. 
+    // Components can listen for changes on promptEvent.
     return [promptEvent, promptToInstall];
 }
 
