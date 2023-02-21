@@ -4,9 +4,9 @@ Preview of some functionalities of Progressive Web Applications.
 Keep in mind that **PWA requires HTTPS**.
 
 Steps to make it work properly: 
-    1) Install the deps
-    2) Run development server
-    3) Tunnel the application via [LocalTunnel](https://github.com/localtunnel/localtunnel) to expose it to the internet.
+1) Install the deps
+2) Run development server
+3) Tunnel the application via [LocalTunnel](https://github.com/localtunnel/localtunnel) to expose it to the internet.
 
 
 ## Install deps
