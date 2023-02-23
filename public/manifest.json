@@ -24,5 +24,21 @@
   "start_url": ".",
   "display": "minimal-ui",
   "theme_color": "#8334c2",
-  "background_color": "#8334c2"
+  "background_color": "#8334c2",
+  "shortcuts": [
+    {
+      "name": "About us",
+      "short_name": "About us",
+      "description": "Visit our About page",
+      "url": "/about",
+      "icons": [{ "src": "/logo192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Careers",
+      "short_name": "Careers",
+      "description": "Visit our careers page",
+      "url": "/careers",
+      "icons": [{ "src": "/logo192.png", "sizes": "192x192" }]
+    }
+  ]
 }

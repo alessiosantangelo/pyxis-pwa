@@ -7,9 +7,27 @@ import logo from './images/logo.svg';
 import styles from './App.module.scss';
 import useAddToHomescreenPrompt from './hooks/useBeforeInstallPrompt'
 
+const getBrowser = (userAgent: string): string | boolean => {
+  if (userAgent.match(/chrome|chromium|crios/i)) {
+    return "Google Chrome";
+  }else if (userAgent.match(/firefox|fxios/i)) {
+    return "Mozilla Firefox";
+  }  else if (userAgent.match(/safari/i)) {
+    return "Apple Safari";
+  }else if (userAgent.match(/opr\//i)) {
+    return "Opera";
+  } else if (userAgent.match(/edg/i)) {
+    return "Microsoft Edge";
+  } else {
+    return false;
+  }
+}
+
+
 const App = ():React.ReactElement =>  {
   const [prompt, handlePrompt] = useAddToHomescreenPrompt();
   const [showPrompt, setShowPrompt] = useState(false);
+  const [browser, setBrowser] = useState<string|boolean>(false)
 
   // Show the install prompt if not already installed.
   useEffect(() => { 
@@ -17,6 +35,19 @@ const App = ():React.ReactElement =>  {
       setShowPrompt(true); 
     }
   }, [prompt])
+
+  useEffect(() => {
+    setBrowser(getBrowser(navigator.userAgent))
+  }, [])
+
+  const handleUpload = async () => {
+    // @ts-ignore next-line
+    const [fileHandle] = await window.showOpenFilePicker();
+    const file = await fileHandle.getFile();
+    const contents = await file.text();
+
+    console.log(contents)
+  }
 
   return (
     <main className="container container-responsive align-content-center">
@@ -30,7 +61,13 @@ const App = ():React.ReactElement =>  {
       </div>
 
       <section className="margin-v-3xl padding-v-3xl">
-        <Text className="c-neutral-base">This is a Progressive Web application with 1MB background image, just to prove that caching works.</Text>
+        <Text size="l" className="c-neutral-base">
+          This is a Progressive Web application with 1MB background image, just to prove that caching works.
+          <br />
+          { browser && <b>{`I've detected that you're currently using ${browser}.`}</b>}
+          <br />
+          In this application you'll find a showcase of the capabilities of a PWA once it has been installed in your device. 
+        </Text>
       </section>
     
       <section className={styles.installPromptWrapper}>
@@ -51,6 +88,19 @@ const App = ():React.ReactElement =>  {
             You can add this application to your Homescreen to use it like a native app.
           </Text>
           <img className={styles.addToHomeScreenImage} src="add-to-homescreen.jpg" alt="Add to homescreen example" />
+        </div>
+      </section>
+
+      <section className={styles.fileSystemWrapper}>
+        <Title size="m" weight="bold" className="c-neutral-125">File System access</Title>
+        <div className={styles.fileSystemContentWrapper}>
+          <Text size="m" className="c-neutral-125">
+            You can try to upload an image here and see how PWA can safely access your File System.
+            <br/> 
+            This can be done only in response of an user interaction.
+            <br/>
+            <Button variant="secondary" size="m" className="margin-v-l" onClick={handleUpload}>Upload</Button>
+          </Text>
         </div>
       </section>
     </main>

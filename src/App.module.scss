@@ -39,14 +39,15 @@ $logoWidth: rem(100px);
 }
 
 .heading {
-    @include radius(s);
+    @include radius(xs);
     background-color: rgba(color(brandDark), 0.65);
     padding: spacing(m);
     text-align: center;
 }
 
 .installPromptWrapper,
-.addToHomeScreenWrapper {
+.addToHomeScreenWrapper,
+.fileSystemWrapper {
     @include radius(m);
     align-items: center;
     justify-content: center;
@@ -55,6 +56,14 @@ $logoWidth: rem(100px);
     padding: spacing(xl) 0;
     margin-bottom: spacing(2xl);
     min-height: 50vh;
+}
+
+.installPromptContentWrapper,
+.addToHomeScreenContentWrapper,
+.fileSystemContentWrapper {
+    padding-left: spacing(m);
+    padding-right: spacing(m);
+    text-align: center;
 }
 
 .installPromptWrapper {
