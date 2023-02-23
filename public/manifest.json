@@ -3,6 +3,7 @@
   "name": "Prima Insurance",
   "description": "Need an insurance? Try Prima, the biggest online insurance company in the world!.",
   "categories": ["finance", "utilities", "transportation"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,7 +22,7 @@
     }
   ],
   "start_url": ".",
-  "display": "standalone",
+  "display": "minimal-ui",
   "theme_color": "#8334c2",
   "background_color": "#8334c2"
 }

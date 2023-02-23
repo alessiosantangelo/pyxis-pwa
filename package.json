@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@pyxis/elm": "^3.2.6",
+    "@pyxis/elm": "^3.2.7",
     "@pyxis/react": "^3.2.6",
     "@pyxis/scss": "^3.2.6",
     "@testing-library/jest-dom": "^5.16.5",
