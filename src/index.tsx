@@ -9,8 +9,33 @@ import reportWebVitals from './reportWebVitals';
 
 window.addEventListener("load", () => {
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/service-worker.js");
+    
+    const registerServiceWorker = () => 
+      navigator.serviceWorker.register("/service-worker.js")
+        .then((registration) => registration) 
+        .catch(() => console.error('Unable to register Service Worker. That makes impossibile to enable PWA features.'))
+      
+    registerServiceWorker();
+  
+    const askPermission = () => {
+      return new Promise(function (resolve, reject) {
+        const permissionResult = Notification.requestPermission(function (result) {
+          resolve(result);
+        });
+    
+        if (permissionResult) {
+          permissionResult.then(resolve, reject);
+        }
+      }).then(function (permissionResult) {
+        if (permissionResult !== 'granted') {
+          throw new Error("We weren't granted permission.");
+        }
+      });
+    }
+    
+    askPermission();
   }
+
 });
 
 const root = ReactDOM.createRoot(
