@@ -7,19 +7,19 @@ import logo from './images/logo.svg';
 import styles from './App.module.scss';
 import useAddToHomescreenPrompt from './hooks/useBeforeInstallPrompt'
 
-const getBrowser = (userAgent: string): string | boolean => {
+const getBrowser = (userAgent: string): string | null => {
   if (userAgent.match(/chrome|chromium|crios/i)) {
     return "Google Chrome";
-  }else if (userAgent.match(/firefox|fxios/i)) {
+  } else if (userAgent.match(/firefox|fxios/i)) {
     return "Mozilla Firefox";
   }  else if (userAgent.match(/safari/i)) {
     return "Apple Safari";
-  }else if (userAgent.match(/opr\//i)) {
+  } else if (userAgent.match(/opr\//i)) {
     return "Opera";
   } else if (userAgent.match(/edg/i)) {
     return "Microsoft Edge";
   } else {
-    return false;
+    return null;
   }
 }
 
@@ -27,7 +27,9 @@ const getBrowser = (userAgent: string): string | boolean => {
 const App = ():React.ReactElement =>  {
   const [prompt, handlePrompt] = useAddToHomescreenPrompt();
   const [showPrompt, setShowPrompt] = useState(false);
-  const [browser, setBrowser] = useState<string|boolean>(false)
+  const [browser, setBrowser] = useState<string|null>(null)
+  const [geoCoords, setGeoCoords] = useState<{lat: number, lon: number} | null>(null)
+  const [uploadedContent, setUploadedContent] = useState('')
 
   // Show the install prompt if not already installed.
   useEffect(() => { 
@@ -40,13 +42,23 @@ const App = ():React.ReactElement =>  {
     setBrowser(getBrowser(navigator.userAgent))
   }, [])
 
+  useEffect(() => {
+    const onSuccess = (position: {coords: {latitude: number, longitude: number}}) => 
+      setGeoCoords({lat: position.coords.latitude, lon: position.coords.longitude})
+    const onError = () => setGeoCoords(null)
+
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(onSuccess, onError)
+    }
+  }, [])
+
   const handleUpload = async () => {
     // @ts-ignore next-line
     const [fileHandle] = await window.showOpenFilePicker();
     const file = await fileHandle.getFile();
-    const contents = await file.text();
+    const fileContent = await file.text();
 
-    console.log(contents)
+    setUploadedContent(fileContent)
   }
 
   return (
@@ -65,6 +77,8 @@ const App = ():React.ReactElement =>  {
           This is a Progressive Web application with 1MB background image, just to prove that caching works.
           <br />
           { browser && <b>{`I've detected that you're currently using ${browser}.`}</b>}
+          <br/>
+          { geoCoords && <b>{`Your latitude is ${geoCoords.lat} while your longitude is ${geoCoords.lon}.`}</b>}
           <br />
           In this application you'll find a showcase of the capabilities of a PWA once it has been installed in your device. 
         </Text>
@@ -74,7 +88,7 @@ const App = ():React.ReactElement =>  {
         <Title size="m" weight="bold" className="c-brand-base">How to install our PWA on Chrome</Title>
         <div className={styles.installPromptContentWrapper}>
           <Text size="m" className="c-neutral-95">
-            If your browser supports PWA install, you should see a button appear below or be prompted natively by your Browser in the top-right corner of the address bar.<br/>
+            If your browser supports PWA and you didn't install it already, you should see a button appear below or be prompted natively by your Browser in the top-right corner of the address bar.<br/>
           </Text>
           {showPrompt && <Button variant="primary" size="l" className="margin-v-l" onClick={handlePrompt}>Install our App!</Button>}  
         </div>
@@ -95,11 +109,17 @@ const App = ():React.ReactElement =>  {
         <Title size="m" weight="bold" className="c-neutral-125">File System access</Title>
         <div className={styles.fileSystemContentWrapper}>
           <Text size="m" className="c-neutral-125">
-            You can try to upload an image here and see how PWA can safely access your File System.
+            You can try to upload any file and see how PWA can safely access your File System.
             <br/> 
-            This can be done only in response of an user interaction.
+            This can be done only in response of an user interaction, for safety reasons.
             <br/>
             <Button variant="secondary" size="m" className="margin-v-l" onClick={handleUpload}>Upload</Button>
+            
+            <div className="form-item__wrapper">
+              <div className="form-field" id="default-field">
+                <textarea aria-invalid="false" className="form-field__textarea" id="uploaded_file" name="uploaded_file" placeholder="Content of your uploaded file will be shown here." defaultValue={uploadedContent}/>
+              </div>
+            </div>
           </Text>
         </div>
       </section>
