@@ -5,6 +5,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import logoSVG from './images/logo.svg'
 import reportWebVitals from './reportWebVitals';
 
 window.addEventListener("load", () => {
@@ -33,9 +34,20 @@ window.addEventListener("load", () => {
       });
     }
     
-    askPermission();
+    if ('Notification' in window) {
+      if (window.Notification.permission === 'granted') {
+        new Notification('Welcome to the PWA', {
+          image: logoSVG,
+          icon: logoSVG,
+          body: 'Lorem ipsum dolor sit amet.',
+          vibrate: [200, 100, 200]
+        })
+      }
+      else {
+        askPermission();
+      }
+    }
   }
-
 });
 
 const root = ReactDOM.createRoot(
