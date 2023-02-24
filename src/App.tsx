@@ -1,11 +1,11 @@
 import { Outlet, Route, Routes } from "react-router-dom";
+import React, {FC} from 'react';
 
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Home from './layout/Home'
-import React from 'react';
 
-const App = ():React.ReactElement => {
+const App:FC<{}> = () => {
   return (
     <main className="container container-responsive align-content-center">
       <Routes>
