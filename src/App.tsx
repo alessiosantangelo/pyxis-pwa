@@ -11,7 +11,7 @@ const App:FC<{}> = () => {
       <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} /> 
-            <Route path="*" element={<p>No results found</p>} />
+            <Route path="*" element={<p>You're seeing the 404 page because this URL doesn't exists.</p>} />
           </Route>
       </Routes>
     </main>

@@ -6,14 +6,14 @@ $logoWidth: rem(100px);
     padding: spacing(m) 0;
     display: grid;
     align-items: center;
-    grid-template-columns: $logoWidth 1fr;
+    grid-template-columns: $logoWidth auto 1fr;
     grid-column-gap: spacing(m);
 }
 
 .logoWrapper {
     max-width: $logoWidth;
     height: auto;
-    margin: spacing(s) auto 0 auto;
+    margin: spacing(2xs) auto 0 auto;
 }
 
 .menu {
