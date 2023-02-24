@@ -9,6 +9,12 @@ Steps to make it work properly:
 3) Tunnel the application via [LocalTunnel](https://github.com/localtunnel/localtunnel) to expose it to the internet.
 
 
+
+## Prerequisites
+
+Having `npx` which is packed with `npm >= 5.20`.
+
+
 ## Install deps
 
 In the project directory, you can run `npm install` to install all the deps.
@@ -16,7 +22,7 @@ In the project directory, you can run `npm install` to install all the deps.
 
 ### Run development server 
 
-`npm start`
+`yarn start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -30,3 +36,4 @@ You will also see any lint errors in the console.
 
 You can run this tunnel after your development server (`npm start`) has been started. 
 This exposes _localhost:3000_ over _https_ on the internet giving you a domain name to resolve the host. 
+
