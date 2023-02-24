@@ -1,0 +1,27 @@
+@use "@pyxis/scss" as *;
+
+$logoWidth: rem(100px);
+
+.header {
+    padding: spacing(m) 0;
+    display: grid;
+    align-items: center;
+    grid-template-columns: $logoWidth 1fr;
+    grid-column-gap: spacing(m);
+}
+
+.logoWrapper {
+    max-width: $logoWidth;
+    height: auto;
+    margin: spacing(s) auto 0 auto;
+}
+
+.menu {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+}
+
+.menuItem {
+    padding: 0 spacing(m);
+}

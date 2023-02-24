@@ -1,0 +1,20 @@
+@use "@pyxis/scss" as *;
+
+.heroWrapper {
+    @include radius(m);
+    background: url(./../images/hero.jpg) no-repeat center center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto spacing(2xl) auto;
+    min-height: 75vh;
+}
+
+.hero {
+    @include radius(xs);
+    background-color: rgba(color(brandDark), 0.65);
+    padding: spacing(m);
+    text-align: center;
+}
